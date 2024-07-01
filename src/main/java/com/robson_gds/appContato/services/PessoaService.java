@@ -33,7 +33,8 @@ public class PessoaService {
     }
 
     public PessoaMinDTO findPessoaAndMaladiretaById(Long id) {
-        PessoaMinProjection pessoaMinProjection = repository.findPessoaAndMaladiretaById(id);
+        PessoaMinProjection pessoaMinProjection = repository.findPessoaAndMaladiretaById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado para o id: " + id));
         PessoaMinDTO dto = new PessoaMinDTO(pessoaMinProjection);
         return dto;
     }

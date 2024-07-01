@@ -5,14 +5,11 @@ import com.robson_gds.appContato.projections.PessoaMinProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
-//    @Query(nativeQuery = true, value = "SELECT id, nome, CONCAT(endereco, ' - ', ' CEP: ', cep, ' ', ' - ', cidade, '/', uf) AS mala_direta " +
-//            "FROM tb_pessoa " +
-//            "WHERE id = 1")
-//    Pessoa findPessoaAndMaladiretaById(Long id);
+import java.util.Optional;
 
+public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
     @Query(nativeQuery = true, value = "SELECT id, nome, CONCAT(endereco, ' - ', ' CEP: ', cep, ' ', ' - ', cidade, '/', uf) AS malaDireta " +
             "FROM tb_pessoa " +
-            "WHERE id = 1")
-    PessoaMinProjection findPessoaAndMaladiretaById(Long id);
+            "WHERE id = :id")
+    Optional<PessoaMinProjection> findPessoaAndMaladiretaById(Long id);
 }
