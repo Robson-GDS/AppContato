@@ -33,6 +33,12 @@ public class ContatoService {
         return contatos;
     }
 
+    public Contato findById(Long id) {
+        Contato contato = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado para o id: " + id));
+        return contato;
+    }
+
     public List<ContatoMinDTO> findAllContatosByPessoa(Long idPessoa) {
         List<ContatoMinProjection> contatoMinProjection = repository.findAllContatosByPessoa(idPessoa);
         List<ContatoMinDTO> dto = contatoMinProjection.stream()
@@ -50,8 +56,16 @@ public class ContatoService {
         }
     }
 
+    public void delete(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Recurso não encontrado para o id: " + id);
+        }
+        repository.deleteById(id);
+    }
+
     private void updateData(Contato entity, Contato obj) {
         entity.setNumeroContato(obj.getNumeroContato());
         entity.setTipoContato(obj.getTipoContato());
+        entity.setPessoa(obj.getPessoa());
     }
 }
