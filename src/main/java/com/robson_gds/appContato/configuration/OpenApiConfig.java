@@ -3,6 +3,7 @@ package com.robson_gds.appContato.configuration;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +23,8 @@ public class OpenApiConfig {
                         new Info()
                                 .title("App contato.")
                                 .description("App para realizar gerenciamento de contatos")
-                );
-//                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"));
+                )
+                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"));
 
     }
 }
